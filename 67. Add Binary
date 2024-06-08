@@ -1,0 +1,24 @@
+class Solution {
+    public String addBinary(String a, String b) {
+        int al = a.length()-1;
+        int bl = b.length()-1;
+        int carry = 0;
+        StringBuilder st = new StringBuilder("");
+        while(al >= 0 || bl >=0 || carry ==1)
+        {
+            if(al>=0)
+            {
+                carry += Character.getNumericValue(a.charAt(al));
+                al--;
+            }
+            if(bl>=0)
+            {
+                carry += Character.getNumericValue(b.charAt(bl));
+                bl--;
+            }
+            st.append(carry%2);
+            carry /= 2;
+        }
+        return st.reverse().toString();        
+    }
+}
