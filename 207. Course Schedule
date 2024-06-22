@@ -1,0 +1,52 @@
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> graph = new ArrayList<List<Integer>>();
+        for(int i=0;i<numCourses;i++)
+        {
+            graph.add(new ArrayList<Integer>());
+        }
+        int[] visited = new int[numCourses];
+        int[] dfsvisited = new int[numCourses];
+
+        for(int i=0;i<prerequisites.length;i++)
+        {
+            graph.get(prerequisites[i][0]).add(prerequisites[i][1]);
+        }
+        
+        for(int i=0;i<numCourses;i++)
+        {
+            if(visited[i]==0)
+            {
+                if(findCycle(graph, visited, dfsvisited, i) == true)
+                {
+                    return false;
+                }
+            }
+            
+        }
+        return true;
+    }
+
+
+    private boolean findCycle(List<List<Integer>> graph , int[] visited, int[] dfsvisited ,int node)
+    {
+        visited[node] = 1;
+        dfsvisited[node] = 1;
+        for(int neigh : graph.get(node))
+        {
+            if(visited[neigh] == 0)
+            {
+                if(findCycle(graph , visited , dfsvisited ,neigh)==true)
+                {
+                    return true;
+                }
+            }
+            else if(dfsvisited[neigh] == 1)
+            {
+                return true;
+            }
+        }
+        dfsvisited[node] = 0;
+        return false;
+    }
+}
