@@ -1,0 +1,29 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+        List<Integer> l = new ArrayList<Integer>();
+        int[] visited = new int[nums.length];
+        permutate (list , l , visited , nums);
+        return list;
+    }
+
+    private void permutate (List<List<Integer>> list , List<Integer> l , int[] visited , int[] nums)
+    {
+        if(l.size() == nums.length)
+        {
+            list.add(new ArrayList<Integer>(l));
+        }
+
+        for(int i=0 ;i< nums.length; i++)
+        {
+            if(visited[i]==0)
+            {
+                visited[i] = 1;
+                l.add(nums[i]);
+                permutate(list , l , visited , nums);
+                visited[i] = 0;
+                l.remove(l.size()-1);
+            }
+        }
+    }
+}
