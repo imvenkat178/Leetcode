@@ -1,0 +1,72 @@
+class Node
+{
+    int stops; 
+    int node;
+    int dist;
+    Node(){}
+    Node(int stops , int node , int dist)
+    {
+        this.stops = stops;
+        this.node = node;
+        this.dist = dist;
+    }
+}
+
+class Pair
+{
+    int node;
+    int cost;
+    Pair(){}
+    Pair(int node , int cost)
+    {
+        this.node = node;
+        this.cost = cost;
+    }
+}
+
+class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        int[] dist = new int[n];
+        List<List<Pair>> adj = new ArrayList<List<Pair>>();
+        for(int i=0 ; i< n;i++)
+        {
+            dist[i] = Integer.MAX_VALUE;
+            adj.add(new ArrayList<Pair>());
+        }
+        for(int i=0;i<flights.length ;i++)
+        {
+            adj.get(flights[i][0]).add(new Pair(flights[i][1],flights[i][2]));
+        }
+        Queue<Node> q = new ArrayDeque<Node>();
+        dist[src] = 0;
+        q.add(new Node(0,src,dist[src]));
+
+        while(!q.isEmpty())
+        {
+            Node nd = q.remove();
+            int stop = nd.stops;
+            if (stop <= k)
+            {
+                int node = nd.node;
+                int nodedist = nd.dist;
+
+                for(Pair pair:adj.get(node))
+                {
+                    int adjnode = pair.node;
+                    int adjcost = pair.cost;
+                    if(dist[adjnode] > nodedist + adjcost )
+                    {
+                        dist[adjnode] = nodedist+adjcost;
+                        q.add(new Node(stop+1 , adjnode , dist[adjnode]));
+                    }
+                }
+                
+            }
+            else{
+                    continue;
+                }
+            
+        }
+        return dist[dst]==Integer.MAX_VALUE?-1:dist[dst];
+    }
+}
