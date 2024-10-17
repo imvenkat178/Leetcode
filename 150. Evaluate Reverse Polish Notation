@@ -1,0 +1,45 @@
+class Solution {
+    public int evalRPN(String[] tokens) {
+        List<String> l = new ArrayList<String>();
+        Stack<Integer> st = new Stack();
+        l.add("+");
+        l.add("-");
+        l.add("*");
+        l.add("/");
+        int i = 0;
+        while(i < tokens.length)
+        {
+            if(l.contains(tokens[i]))
+            {
+                int k = st.pop();
+                int k1 = st.pop();
+                st.push(cal(tokens[i] , k ,k1));
+
+            }
+            else{
+                st.push(Integer.valueOf(tokens[i]));
+            }
+            i++;
+        }
+        return st.pop();
+    }
+
+
+    public int cal(String str , int k , int k1)
+    {
+        if(str.equals("/"))
+        {
+            return (int)(k1 / k);
+        }
+        else if(str.equals("*"))
+        {
+            return k1 * k;
+        }
+        else if(str.equals("+"))
+        {
+            return k1 + k;
+        }else{
+            return k1 - k;
+        }
+    }
+}
