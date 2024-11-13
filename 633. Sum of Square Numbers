@@ -1,0 +1,21 @@
+class Solution {
+    public boolean judgeSquareSum(int c) {
+        boolean res = false;
+        int l = 0  , r = (int)Math.sqrt(c) ;
+        while(l<=r)
+        {
+            if(Math.pow(l,2) + Math.pow(r,2) == c)
+            {
+                res = true;
+                break;
+            }
+            else if(Math.pow(l,2) + Math.pow(r,2) <= c)
+            {
+                l++;
+            }else{
+                r--;
+            }
+        }
+        return res;
+    }
+}
