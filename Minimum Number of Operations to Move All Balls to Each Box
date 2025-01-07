@@ -1,0 +1,24 @@
+class Solution {
+    public int[] minOperations(String boxes) {
+        List<Integer> list = new ArrayList<Integer>();
+        int[] res = new int[boxes.length()];
+        for(int i=0;i<boxes.length();i++)
+        {
+            if(boxes.charAt(i) == '1')
+            {
+                list.add(i);
+            }
+        }
+
+        for(int i=0 ; i< boxes.length();i++)
+        {
+            int count = 0;
+            for(int j=0 ; j< list.size();j++)
+            {
+                count = count + Math.abs(list.get(j)-i);
+            }
+            res[i] = count;
+        }
+        return res;
+    }
+}
