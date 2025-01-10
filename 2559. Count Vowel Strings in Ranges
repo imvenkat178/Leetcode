@@ -1,0 +1,62 @@
+class Solution {
+    public int[] vowelStrings(String[] words, int[][] queries) {
+        List<Character> list = new ArrayList<Character>()
+        {{
+            add('a');
+            add('e');
+            add('i');
+            add('o');
+            add('u');
+        }};;
+        int[] isVowelStrings = new int[words.length];
+        int[] res = new int[queries.length];
+        for(int i = 0; i < words.length ; i++)
+        {
+            if(i!=0)
+            {
+                isVowelStrings[i] = isVowelStrings[i-1];
+            }
+            char start = words[i].charAt(0);
+            char end = words[i].charAt(words[i].length()-1);
+            if(list.contains(start) && list.contains(end))
+            {
+                isVowelStrings[i] += 1;
+            }
+        }
+
+        // for(int i = 1; i < words.length ; i++)
+        // {
+        //     isVowelStrings[i] += isVowelStrings[i-1];
+        // }
+
+        for(int i = 0 ; i< queries.length ; i++)
+        {
+            int count = isVowelStrings[queries[i][1]];
+            int start = queries[i][0];
+            int end = queries[i][1];
+            // if(start == 0)
+            // {
+            //     if(isVowelStrings[0]==1)
+            //     {
+            //         count = isVowelStrings[end] - isVowelStrings[start]+1;
+            //     }else{
+            //         count = isVowelStrings[end] - isVowelStrings[start];
+            //     }
+            // }else{
+            //     if(isVowelStrings[start-1]!=isVowelStrings[start])
+            //     {
+            //         count = isVowelStrings[end] - isVowelStrings[start]+1;
+            //     }else{
+            //         count = isVowelStrings[end] - isVowelStrings[start];
+            //     }
+            // }
+            if(start!=0)
+            {
+                count -= isVowelStrings[start-1];
+            }
+
+            res[i] = count;
+        }
+        return res;
+    }
+}
