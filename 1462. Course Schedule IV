@@ -1,0 +1,41 @@
+class Solution {
+    public List<Boolean> checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {
+        List<List<Integer>> adj = new ArrayList<List<Integer>>();
+        List<Boolean> res = new ArrayList<Boolean>();
+        for (int i = 0; i < numCourses; i++) {
+            adj.add(new ArrayList<>());
+        }
+        for (int[] pre : prerequisites) {
+            int ai = pre[0];
+            int bi = pre[1];
+            adj.get(ai).add(bi);
+        }
+
+        for(int i[] : queries)
+        {
+            int i1 = i[0];
+            int i2 = i[1];
+            boolean[] visited = new boolean[numCourses];
+            boolean isConnected = dfs(i1,i2,adj,visited);
+            res.add(isConnected);
+        }
+        return res;
+    }
+
+    private boolean dfs(int node1,int node2,List<List<Integer>> adj ,boolean[] visited)
+    {
+        if(node1==node2)
+        {
+            return true;
+        }
+        visited[node1] = true;
+        for(int i:adj.get(node1))
+        {
+            if(visited[i]==false && dfs(i,node2,adj,visited))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+}
