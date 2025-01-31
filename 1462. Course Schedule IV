@@ -1,41 +1,35 @@
+import java.util.*;
+
 class Solution {
     public List<Boolean> checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {
-        List<List<Integer>> adj = new ArrayList<List<Integer>>();
-        List<Boolean> res = new ArrayList<Boolean>();
+        List<List<Integer>> adj = new ArrayList<>();
         for (int i = 0; i < numCourses; i++) {
             adj.add(new ArrayList<>());
         }
         for (int[] pre : prerequisites) {
-            int ai = pre[0];
-            int bi = pre[1];
-            adj.get(ai).add(bi);
+            adj.get(pre[0]).add(pre[1]);
         }
 
-        for(int i[] : queries)
-        {
-            int i1 = i[0];
-            int i2 = i[1];
-            boolean[] visited = new boolean[numCourses];
-            boolean isConnected = dfs(i1,i2,adj,visited);
-            res.add(isConnected);
+
+        boolean[][] isPrerequisite = new boolean[numCourses][numCourses];
+        for (int u = 0; u < numCourses; u++) {
+            dfs(u, u, adj, isPrerequisite);
+        }
+
+        List<Boolean> res = new ArrayList<>();
+        for (int[] query : queries) {
+            res.add(isPrerequisite[query[0]][query[1]]);
         }
         return res;
     }
 
-    private boolean dfs(int node1,int node2,List<List<Integer>> adj ,boolean[] visited)
-    {
-        if(node1==node2)
-        {
-            return true;
+    private void dfs(int start, int current, List<List<Integer>> adj, boolean[][] isPrerequisite) {
+        if (isPrerequisite[start][current]) {
+            return;
         }
-        visited[node1] = true;
-        for(int i:adj.get(node1))
-        {
-            if(visited[i]==false && dfs(i,node2,adj,visited))
-            {
-                return true;
-            }
+        isPrerequisite[start][current] = true;
+        for (int neighbor : adj.get(current)) {
+            dfs(start, neighbor, adj, isPrerequisite);
         }
-        return false;
     }
 }
