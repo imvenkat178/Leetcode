@@ -8,20 +8,18 @@ class Solution {
             if(nums[i]<nums[i+1])
             {
                 inc++;
-                max = Math.max(inc ,max);
-            }else{
-                inc =0;
-            }
-        }
-        for(int i= 0 ; i< nums.length-1; i++)
-        {
-            if(nums[i]>nums[i+1])
+                dec=0;
+                
+            }else if(nums[i]>nums[i+1])
             {
                 dec++;
-                max = Math.max(dec ,max);
-            }else{
-                dec =0;
+                inc=0;
             }
+            else{
+                inc =0;
+                dec=0;
+            }
+            max = Math.max(max ,Math.max(inc,dec));
         }
         return max==0?1:max+1;
     }
