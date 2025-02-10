@@ -1,21 +1,28 @@
 class Solution {
-    public String clearDigits(String s) {
-        Stack<Character> st = new Stack();
-        for(int i = 0 ; i < s.length();i++)
+    public String clearDigits(String s)
+    {
+        int len = s.length();
+        StringBuilder str = new StringBuilder ();
+        int i=-1;
+
+        for(int j=0;j<len;j++)
         {
-            if(Character.isLetter(s.charAt(i)))
+            char c = s.charAt(j);
+            if(c>='a' && c<='z')
             {
-                st.push(s.charAt(i));
+                i++;
+                str.append(c);
             }
-            if(Character.isDigit(s.charAt(i)) && !st.isEmpty())
-            {
-                st.pop();
+                
+            else{
+                if(i>=0)
+                {
+                    str.deleteCharAt(i);
+                    i--;
+                }
             }
         }
-        
-        String result = st.stream()
-             .map(String::valueOf)
-             .collect(Collectors.joining(""));
-        return result;
+
+        return str.toString();
     }
 }
