@@ -1,0 +1,19 @@
+class Solution {
+    public int minOperations(int[] nums, int k) {
+        Queue<Long> pq = new PriorityQueue<Long>();
+        int count = 0;
+        for(int i:nums)
+        {
+            pq.offer(Long.valueOf(i));
+        }
+        while(pq.peek()<k)
+        {
+            long k1 = pq.poll();
+            long k2 = pq.poll();
+            pq.offer((Math.min(k1,k2)*2) + Math.max(k1,k2));
+            count++;
+        }
+        return count;
+        
+    }
+}
