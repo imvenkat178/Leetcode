@@ -1,0 +1,44 @@
+class Solution {
+    Set<String> set;
+    String ans;
+    public String findDifferentBinaryString(String[] nums) {
+        set=new HashSet<String>();
+        
+        for(String s:nums)
+        {
+            set.add(s);
+        }
+        backtrack(0 , nums[0].length() , "");
+        return ans;
+    }
+
+    private boolean backtrack(int i , int n , String curr)
+    {
+        if(curr.length() == n)
+        {
+            if(!set.contains(curr))
+            {
+                ans = curr;
+                return true;
+            }
+            return false;
+        }
+        // curr.append("0");
+        // System.out.println(curr.toString());
+        // backtrack(i+1 , n , curr);
+        // curr.replace(curr.length()-1,curr.length(),"");
+        // curr.append("1");
+        // System.out.println(curr.toString());
+        // backtrack(i+1 ,n , curr);
+        if(backtrack(i+1 ,n , curr+"0"))
+        {
+            return true;
+        }
+        
+        if(backtrack(i+1 ,n , curr+"1"))
+        {
+            return true;
+        }
+        return false;
+    }
+}
