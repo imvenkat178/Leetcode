@@ -2,21 +2,21 @@ class Solution {
     public int maxDifference(String s) {
         int oddf = Integer.MIN_VALUE;
         int evef = Integer.MAX_VALUE;
-        Map<Character , Integer> map = new HashMap<Character,Integer>();
-        for(int i = 0 ; i < s.length() ; i++)
+        int[] charr = new int[26];
+        for(char ch : s.toCharArray())
         {
-            map.put(s.charAt(i) , map.getOrDefault(s.charAt(i),0)+1);
+            charr[ch-'a']+=1;
         }
-        for(Map.Entry<Character,Integer> e : map.entrySet())
+        for(int i = 0 ; i <26 ; i++)
         {
-            if(e.getValue()%2 ==1)
+            if(charr[i]%2 == 0 && charr[i] !=0)
             {
-                oddf = Math.max(oddf ,e.getValue());
+                evef = Math.min(evef ,charr[i]);
+                
             }else{
-                evef = Math.min(evef ,e.getValue());
+                oddf = Math.max(oddf ,charr[i]);
             }
         }
         return oddf - evef;
-        
     }
 }
