@@ -1,0 +1,26 @@
+class Solution {
+    public String[] divideString(String s, int k, char fill) {
+        String[] sarr = s.length()%k == 0 ? new String[(s.length()/k)] : new String[(s.length()/k)+1];
+        int n = 0;
+        int i = 0;
+        for( i = 0; i< s.length()-k; i+=k)
+        {
+            if(i+k <= s.length())
+            {
+                sarr[n++] = s.substring(i , i+k);
+            }
+        }
+        StringBuilder st = new StringBuilder(s.substring(i));
+        if(st.length() == 0)
+        {
+            return sarr;
+        }else{
+            for(int j= 0 ; j< k - s.substring(i).length();j++)
+            {
+                st.append(fill);
+            }
+            sarr[n] = st.toString();
+        }
+        return sarr;
+    }
+}
