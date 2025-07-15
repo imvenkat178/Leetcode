@@ -1,0 +1,30 @@
+class Solution {
+    public boolean isValid(String word) {
+        List<Character> vowels = new ArrayList<>(Arrays.asList('a', 'e', 'i', 'o', 'u'));
+        word = word.toLowerCase();
+        boolean alphanumeric = true;
+        int vowel = 0;
+        int constant = 0;
+        if(word.length() >=3)
+        {
+            for(int i = 0 ; i < word.length();i++)
+            {
+                if(Character.isLetterOrDigit(word.charAt(i)) == true)
+                {
+                    if(vowels.contains(word.charAt(i)))
+                    {
+                        vowel++;
+                    }
+                    else if(!Character.isDigit(word.charAt(i)))
+                    {
+                        constant++;
+                    }
+                }else{
+                    alphanumeric = false;
+                    break;
+                }
+            }
+        }
+        return (vowel >= 1 && constant>=1 && alphanumeric)? true : false;
+    }
+}
