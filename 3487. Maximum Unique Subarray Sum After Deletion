@@ -1,0 +1,21 @@
+class Solution {
+    public int maxSum(int[] nums) {
+        int sum = 0;
+        TreeSet<Integer> set = Arrays.stream(nums)
+                             .boxed()
+                             .collect(Collectors.toCollection(
+                                ()->new TreeSet<Integer>(Comparator.reverseOrder())
+                             ));
+        Iterator<Integer> it = set.iterator();
+        if(it.hasNext())
+        {
+            sum = it.next();
+        }
+        
+        while(it.hasNext())
+        {
+            sum  = Math.max(sum+it.next() , sum);
+        }
+        return sum;
+    }
+}
