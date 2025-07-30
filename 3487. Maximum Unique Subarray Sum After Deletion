@@ -1,21 +1,20 @@
 class Solution {
     public int maxSum(int[] nums) {
+        Set<Integer> hashSet = new HashSet<>();
+        int maxNum = Integer.MIN_VALUE;
         int sum = 0;
-        TreeSet<Integer> set = Arrays.stream(nums)
-                             .boxed()
-                             .collect(Collectors.toCollection(
-                                ()->new TreeSet<Integer>(Comparator.reverseOrder())
-                             ));
-        Iterator<Integer> it = set.iterator();
-        if(it.hasNext())
-        {
-            sum = it.next();
+        for (int num : nums) {
+            if (num > 0) {
+                if (!hashSet.contains(num)) {
+                    hashSet.add(num);
+                    sum += num;
+                }
+            } else {
+                maxNum = Math.max(maxNum, num);
+            }
         }
-        
-        while(it.hasNext())
-        {
-            sum  = Math.max(sum+it.next() , sum);
-        }
+
+        if (hashSet.isEmpty()) return maxNum;
         return sum;
     }
 }
