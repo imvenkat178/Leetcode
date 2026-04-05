@@ -1,0 +1,39 @@
+class Solution {
+    public boolean judgeCircle(String moves) {
+        Stack<Character> vertical = new Stack<>();
+        Stack<Character> horizontal = new Stack<>();
+
+        for(char ch : moves.toCharArray()) {
+
+            // Vertical directions
+            if(ch == 'U' || ch == 'D') {
+
+                if(vertical.isEmpty()) {
+                    vertical.push(ch);
+                }
+                else if(vertical.peek() == ch) {
+                    vertical.push(ch);
+                }
+                else {
+                    vertical.pop();
+                }
+            }
+
+            // Horizontal directions
+            else if(ch == 'L' || ch == 'R') {
+
+                if(horizontal.isEmpty()) {
+                    horizontal.push(ch);
+                }
+                else if(horizontal.peek() == ch) {
+                    horizontal.push(ch);
+                }
+                else {
+                    horizontal.pop();
+                }
+            }
+        }
+
+        return vertical.isEmpty() && horizontal.isEmpty();
+    }
+}
