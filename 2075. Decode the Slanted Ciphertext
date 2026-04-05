@@ -1,0 +1,28 @@
+class Solution {
+    public String decodeCiphertext(String encodedText, int rows) {
+
+        if(rows == 1) return encodedText;
+
+        int n = encodedText.length();
+        int cols = n / rows;
+
+        StringBuilder result = new StringBuilder();
+
+        for(int start = 0; start < cols; start++){
+
+            int i = 0;
+            int j = start;
+
+            while(i < rows && j < cols){
+
+                int index = i * cols + j;
+                result.append(encodedText.charAt(index));
+
+                i++;
+                j++;
+            }
+        }
+
+        return result.toString().replaceAll("\\s+$", "");
+    }
+}
